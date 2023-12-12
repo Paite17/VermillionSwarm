@@ -9,9 +9,10 @@ public class RotateShoot : MonoBehaviour
     [SerializeField] Transform firePos;
     [SerializeField] GameObject shellPrefab;
     [SerializeField] float rotationSpeed;
-    [SerializeField] float fireCooldown = 0.8f;
+    [SerializeField] float cooldown;
     [SerializeField] float shellSpeed;
 
+    float fireCooldown;
     bool rotatingRight = false;
     bool rotatingLeft = false;
     GameObject newShell;
@@ -57,8 +58,8 @@ public class RotateShoot : MonoBehaviour
     void FireShell()
     {
         newShell = Instantiate(shellPrefab, firePos.position, Quaternion.identity);
-        newShell.GetComponent<Rigidbody2D>().AddForce(firePos.up * shellSpeed, ForceMode2D.Force);
-        fireCooldown = 0.8f;
+        newShell.GetComponent<Rigidbody2D>().AddForce(firePos.up * shellSpeed, ForceMode2D.Impulse);
+        fireCooldown = cooldown;
     }
 
     void FireTimer()

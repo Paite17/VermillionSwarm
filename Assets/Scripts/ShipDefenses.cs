@@ -8,17 +8,16 @@ public class ShipDefenses : MonoBehaviour
     [SerializeField] float rotationSpeed;
     [SerializeField] float hitCapacity;
 
-    private GameObject plr;
+    bool readyToSpin = true;
 
     private void Start()
     {
-        plr = GameObject.Find("MainShip");
-        focusPos = plr.transform;
+
     }
 
     private void Update()
     {
-        if (transform != null)
+        if (readyToSpin)
         {
             RotateEnergyField();
         }
@@ -26,6 +25,7 @@ public class ShipDefenses : MonoBehaviour
 
     void RotateEnergyField()
     {
-        transform.RotateAround(focusPos.position, Vector3.forward, 20 * Time.deltaTime);
+        transform.RotateAround(focusPos.position, Vector3.forward, rotationSpeed * Time.deltaTime);
+
     }
 }
