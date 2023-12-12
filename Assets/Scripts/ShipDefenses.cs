@@ -8,9 +8,12 @@ public class ShipDefenses : MonoBehaviour
     [SerializeField] float rotationSpeed;
     [SerializeField] float hitCapacity;
 
+    private GameObject plr;
+
     private void Start()
     {
-        focusPos = GetComponent<RotateShoot>().transform;
+        plr = GameObject.Find("MainShip");
+        focusPos = plr.transform;
     }
 
     private void Update()
@@ -23,6 +26,6 @@ public class ShipDefenses : MonoBehaviour
 
     void RotateEnergyField()
     {
-        transform.RotateAround(focusPos.position, Vector3.up, 20 * Time.deltaTime);
+        transform.RotateAround(focusPos.position, Vector3.forward, 20 * Time.deltaTime);
     }
 }
