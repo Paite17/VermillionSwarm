@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ShipDefenses : MonoBehaviour
 {
-    [SerializeField] Transform focusPos;
-    [SerializeField] float rotationSpeed;
     [SerializeField] float hitCapacity;
+    [SerializeField] float rechargeTimer;
 
-    bool readyToSpin = true;
+    float rTimer;
 
     private void Start()
     {
@@ -17,15 +16,8 @@ public class ShipDefenses : MonoBehaviour
 
     private void Update()
     {
-        if (readyToSpin)
-        {
-            RotateEnergyField();
-        }
+        
     }
 
-    void RotateEnergyField()
-    {
-        transform.RotateAround(focusPos.position, Vector3.forward, rotationSpeed * Time.deltaTime);
 
-    }
 }
