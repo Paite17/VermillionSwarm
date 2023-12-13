@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Build;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class RotateShoot : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class RotateShoot : MonoBehaviour
     [SerializeField] bool shotgunEquipped = false;
     [SerializeField] bool beamEquipped = false;
     [SerializeField] bool flameTEquipped = false;
+
+    [SerializeField] AudioSource flameSound, beamSound, gunSound, sgSound;
 
     bool beamFiring;
     bool beamResetting;
@@ -86,6 +89,7 @@ public class RotateShoot : MonoBehaviour
             if (!beamFiring && beamTime > 0)
             {
                 beamFiring = true;
+                beamSound.Play();
             }
             ActivateBeam();
         }
@@ -101,6 +105,7 @@ public class RotateShoot : MonoBehaviour
         newShell = Instantiate(shellPrefab, firePos.position, Quaternion.identity);
         newShell.GetComponent<Rigidbody2D>().AddForce(firePos.up * shellSpeed, ForceMode2D.Impulse);
         fireCooldown = cooldown;
+        gunSound.Play();
     }
 
     void FireShotgun()
@@ -112,6 +117,7 @@ public class RotateShoot : MonoBehaviour
         newShell2.GetComponent<Rigidbody2D>().AddForce(sgFirePos2.up * shellSpeed, ForceMode2D.Impulse);
         newShell3.GetComponent<Rigidbody2D>().AddForce(sgFirePos3.up * shellSpeed, ForceMode2D.Impulse);
         fireCooldown = cooldown;
+        sgSound.Play();
     }
 
     void ActivateBeam()
