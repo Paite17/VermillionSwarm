@@ -7,7 +7,7 @@ using UnityEngine;
 public class RotateShoot : MonoBehaviour
 {
     [SerializeField] Transform mainShip;
-    [SerializeField] Transform beam;
+    [SerializeField] Transform beam, flamer;
     [SerializeField] Transform firePos, sgFirePos1, sgFirePos2, sgFirePos3;
     [SerializeField] GameObject shellPrefab;
     [SerializeField] float rotationSpeed;
@@ -22,6 +22,7 @@ public class RotateShoot : MonoBehaviour
     [SerializeField] bool gunEquipped = true;
     [SerializeField] bool shotgunEquipped = false;
     [SerializeField] bool beamEquipped = false;
+    [SerializeField] bool flameTEquipped = false;
 
     bool beamFiring;
     bool beamResetting;
@@ -31,6 +32,7 @@ public class RotateShoot : MonoBehaviour
     private void Start()
     {
         beam.gameObject.SetActive(false);
+        flamer.gameObject.SetActive(false);
         beamTime = beamActiveTime;
         beamReset = 0f;
         beamResetting = false;
@@ -87,6 +89,11 @@ public class RotateShoot : MonoBehaviour
             }
             ActivateBeam();
         }
+
+        if (Input.GetKey(KeyCode.Space) && flameTEquipped)
+        {
+            ActivateFlamethrower();
+        }
     }
 
     void FireShell()
@@ -113,6 +120,11 @@ public class RotateShoot : MonoBehaviour
         {
             beam.gameObject.SetActive(true);
         }
+    }
+
+    void ActivateFlamethrower()
+    {
+
     }
 
     // Method for controlling all weapon timers
@@ -159,6 +171,7 @@ public class RotateShoot : MonoBehaviour
         beamEquipped = true;
         gunEquipped = false;
         shotgunEquipped = false;
+        flameTEquipped = false;
     }
 
     public void EquipShotgun()
@@ -166,6 +179,7 @@ public class RotateShoot : MonoBehaviour
         beamEquipped = false;
         gunEquipped = false;
         shotgunEquipped = true;
+        flameTEquipped = false;
     }
 
     public void EquipGun()
@@ -173,5 +187,14 @@ public class RotateShoot : MonoBehaviour
         beamEquipped = false;
         gunEquipped = true;
         shotgunEquipped = false;
+        flameTEquipped = false;
+    }
+
+    public void EquipFlamer()
+    {
+        beamEquipped = false;
+        gunEquipped = false;
+        shotgunEquipped = false;
+        flameTEquipped = true;
     }
 }
