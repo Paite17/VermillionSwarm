@@ -8534,7 +8534,7 @@ MonoBehaviour:
   moneyText: {fileID: 2100120607}
   scoreText: {fileID: 1381443931}
   killsText: {fileID: 493625480}
-  player: {fileID: 0}
+  player: {fileID: 1546936876}
 --- !u!82 &1908166234
 AudioSource:
   m_ObjectHideFlags: 0
