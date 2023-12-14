@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.Timeline;
 
@@ -7,37 +8,50 @@ public class RotateShoot : MonoBehaviour
 {
     [SerializeField] Transform mainShip;
     [SerializeField] Transform beam, flamer;
-    [SerializeField] Transform firePos, sgFirePos1, sgFirePos2, sgFirePos3;
+    [SerializeField] Transform firePos, sgFirePos1, sgFirePos2, sgFirePos3, backFirePos;
     [SerializeField] GameObject shellPrefab;
+    [SerializeField] ParticleSystem flamePS;
     [SerializeField] float cooldown;
     [SerializeField] float beamActiveTime;
+    [SerializeField] float flamerActiveTime;
     [SerializeField] float shellSpeed;
 
     public float rotationSpeed;
-    float fireCooldown;
+    public float fireCooldown;
     float beamTime;
+    float flameTime;
     bool rotatingRight = false;
     bool rotatingLeft = false;
     [SerializeField] bool gunEquipped = true;
     [SerializeField] bool shotgunEquipped = false;
     [SerializeField] bool beamEquipped = false;
     [SerializeField] bool flameTEquipped = false;
+    [SerializeField] bool backshotEquipped = false;
 
     [SerializeField] AudioSource flameSound, beamSound, gunSound, sgSound, cdIncomplete;
 
     bool beamFiring;
+    bool flameFiring;
     bool beamResetting;
+    bool flameResetting;
     float beamReset;
-    GameObject newShell, newShell1, newShell2, newShell3;
+    float flameReset;
+    GameObject newShell, newShell1, newShell2, newShell3, newShell4;
 
     private void Start()
     {
         beam.gameObject.SetActive(false);
         flamer.gameObject.SetActive(false);
         beamTime = beamActiveTime;
+        flameTime = flamerActiveTime;
         beamReset = 0f;
+        flameReset = 0f;
         beamResetting = false;
         beamFiring = false;
+        flameResetting = false;
+        flameFiring = false;
+
+        flamePS = GetComponent<ParticleSystem>();
     }
 
     private void Update()
@@ -75,6 +89,10 @@ public class RotateShoot : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && gunEquipped && fireCooldown <= 0)
         {
             FireShell();
+            if (backshotEquipped)
+            {
+                FireBackshots();
+            }
         }
 
         if (Input.GetKey(KeyCode.Space) && shotgunEquipped && fireCooldown <= 0)
@@ -96,9 +114,18 @@ public class RotateShoot : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Space) && flameTEquipped)
+        if (Input.GetKeyDown(KeyCode.Space) && flameTEquipped)
         {
+            if (!flameFiring && flameTime > 0)
+            {
+                flameFiring = true;
+            }
             ActivateFlamethrower();
+
+            if (!flameFiring && flameResetting)
+            {
+                cdIncomplete.Play();
+            }
         }
     }
 
@@ -133,12 +160,20 @@ public class RotateShoot : MonoBehaviour
 
     void ActivateFlamethrower()
     {
-
+        if (flameTime > 0 && flameFiring)
+        {
+            flamer.gameObject.SetActive(true);
+            flameSound.Play();
+            flamePS.Play();
+        }
     }
 
     void FireBackshots()
     {
-
+        newShell4 = Instantiate(shellPrefab, backFirePos.position, Quaternion.identity);
+        newShell4.GetComponent<Rigidbody2D>().AddForce(backFirePos.up * shellSpeed, ForceMode2D.Impulse);
+        fireCooldown = cooldown;
+        gunSound.Play();
     }
 
     // Method for controlling all weapon timers
@@ -161,7 +196,7 @@ public class RotateShoot : MonoBehaviour
         {
             beamFiring = false;
             beam.gameObject.SetActive(false);
-            beamReset = 5f;
+            beamReset = 7f;
             beamResetting = true;
             Debug.Log("cooling down");
         }
@@ -177,6 +212,35 @@ public class RotateShoot : MonoBehaviour
             beamTime = beamActiveTime;
             beamResetting = false;
             Debug.Log("beam ready");
+        }
+
+        if (flameTime > 0 && flameFiring)
+        {
+            flameTime -= Time.deltaTime;
+            Debug.Log("flaming");
+        }
+
+        if (flameTime <= 0 && !flameResetting)
+        {
+            flameFiring = false;
+            flamePS.Stop();
+            flamer.gameObject.SetActive(false);
+            flameReset = 3f;
+            flameResetting = true;
+            Debug.Log("cooling down");
+        }
+
+        if (flameReset > 0)
+        {
+            flameReset -= Time.deltaTime;
+            Debug.Log("refilling");
+        }
+
+        if (flameReset <= 0 && flameResetting)
+        {
+            flameTime = flamerActiveTime;
+            flameResetting = false;
+            Debug.Log("flamer ready");
         }
     }
 
@@ -210,5 +274,10 @@ public class RotateShoot : MonoBehaviour
         gunEquipped = false;
         shotgunEquipped = false;
         flameTEquipped = true;
+    }
+
+    public void EquipBackshot()
+    {
+        backshotEquipped = true;
     }
 }
