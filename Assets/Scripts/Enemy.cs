@@ -39,9 +39,18 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform firePos;
     [SerializeField] private float projectileSpeed;
 
-    
 
 
+    public float EnemyHealth
+    {
+        get { return enemyHealth; }
+        set { enemyHealth = value; }
+    }
+
+    public float EnemyDamage
+    {
+        get { return enemyDamage; }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -117,6 +126,11 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if (enemyHealth <= 0)
+        {
+            EnemyDeath();
+        }
+
         //transform.LookAt(playerLocation);
     }
 
@@ -135,6 +149,7 @@ public class Enemy : MonoBehaviour
                 switch (enemyType)
                 {
                     case EnemyType.SUICIDE_BOMBER:
+                        collision.gameObject.GetComponent<Player>().TakeDamage(enemyDamage);
                         Destroy(gameObject);
                         break;
                 }
@@ -148,6 +163,7 @@ public class Enemy : MonoBehaviour
                 switch (enemyType)
                 {
                     case EnemyType.SUICIDE_BOMBER:
+                        collision.gameObject.GetComponent<ShipDefenses>().TakeShieldDamage(enemyDamage);
                         Destroy(gameObject);
                         break;
                 }

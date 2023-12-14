@@ -37,6 +37,13 @@ public class GameManager : MonoBehaviour
     [Header("System Stuff")]
     [SerializeField] private List<EntitySpawner> spawners; // a list of spawners that should automatically get filled on start
     [SerializeField] private List<Upgrades> allUpgrades; // a list of all possible upgrades the player is currently able to get
+    [SerializeField] private int wavesUntilBoss; // counts down each wave until the boss shows up
+    [SerializeField] private int baseWaveUntilBoss; // the int used to reset the above counter
+    [SerializeField] private int timesBossWasBeat; // a value keeping track of how many times you beat pi guy for his name change
+    [SerializeField] private UIScript ui; // ref for the UI 
+
+    [Header("Misc")]
+    [SerializeField] private GameObject piGuyBoss; // the gameobject for pi guy himself
 
     private PlayerStats player;
 
@@ -80,12 +87,36 @@ public class GameManager : MonoBehaviour
         get { return  startCountDown; }
     }
 
+    public int WavesUntilBoss
+    {
+        get { return wavesUntilBoss; }
+        set { wavesUntilBoss = value; }
+    }
+
+    public float MaxWaveTime
+    {
+        get { return maxWaveTime; }
+    }
+
+    public GameState State
+    {
+        get { return state; }
+        set { state = value; }
+    }
+
+    public int TimesBossWasBeat
+    {
+        get { return timesBossWasBeat; }
+    }
+
     private void Start()
     {
         FindSpawners();
         FindAllUpgrades();
+        DeactivateSpawners();
         player = FindObjectOfType<PlayerStats>();
         wave = 1;
+        wavesUntilBoss = baseWaveUntilBoss;
 
     }
 
@@ -109,6 +140,12 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
+        if (piGuyBoss.GetComponent<Enemy>().EnemyHealth <= 0 && state == GameState.BOSS_WAVE)
+        {
+            // beat boss
+            timesBossWasBeat++;
+            ui.HideBossUI();
+        }
     }
 
     // adds every spawner present on the map to the list
@@ -132,6 +169,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    
+    // activates all the spawners because :)
+    public void ActivateSpawners()
+    {
+        for (int i = 0; i < spawners.Count; i++)
+        {
+            spawners[i].Activated = true;
+        }
+    }
+
     private void PreWaveCounter()
     {
         preWaveTimer -= Time.deltaTime;
@@ -139,6 +186,10 @@ public class GameManager : MonoBehaviour
         if (preWaveTimer <= 0)
         {
             // START wave
+            if (wavesUntilBoss > 0)
+            {
+                WaveStart();
+            }
         }
     }
 
@@ -149,24 +200,69 @@ public class GameManager : MonoBehaviour
         if (waveTimer >= maxWaveTime)
         {
             // END WAVE
+            EndOfWave();
+        }
+        else
+        {
+            BossWaveStart();
         }
     }
 
     private void EndOfWave()
     {
-        state = GameState.UPGRADE;
+
+        StartCoroutine(EndOfWaveLogic());
+        
     }
 
     private IEnumerator EndOfWaveLogic()
     {
+       
+        // logic
+        DeactivateSpawners();
+        bool d = false;
+        waveTimer = maxWaveTime;
 
-        yield return new WaitForSeconds(1f);
+        if (!d)
+        {
+            wave++;
+            wavesUntilBoss--;
+            d = true;
+        }
+        DespawnEnemies();
 
+        yield return new WaitForSeconds(2f);
+
+        state = GameState.UPGRADE;
+        UpgradeState();
+    }
+
+    // pause stuff during upgrade phase
+    private void UpgradeState()
+    {
+        Time.timeScale = 0;
+        // ui activation
     }
 
     private void WaveStart()
     {
+        state = GameState.ACTIVE_WAVE;
 
+        // any UI related things
+        waveTimer = maxWaveTime;
+
+        // start music
+    }
+
+    private void BossWaveStart()
+    {
+        state = GameState.BOSS_WAVE;
+        // set UI things active
+        ui.ShowBossUI();
+        // set music
+
+        // spawn boss
+        Instantiate(piGuyBoss);
     }
 
     public void GameOver()
@@ -174,6 +270,7 @@ public class GameManager : MonoBehaviour
         // will probably use a coroutine
     }
 
+    // make enemies retreat
     public void DespawnEnemies()
     {
         var enemies = GameObject.FindGameObjectsWithTag("Enemy");
