@@ -1032,6 +1032,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1044446654295894670, guid: 25fed4657f0a0994c81e1771a9585dcb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1044446654295894670, guid: 25fed4657f0a0994c81e1771a9585dcb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.07
+      objectReference: {fileID: 0}
     - target: {fileID: 2171055592006405642, guid: 25fed4657f0a0994c81e1771a9585dcb, type: 3}
       propertyPath: m_Name
       value: RangedEnemy

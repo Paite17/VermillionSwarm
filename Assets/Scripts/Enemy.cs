@@ -27,6 +27,8 @@ public class Enemy : MonoBehaviour
     private float knockbackTimer;
     private bool knockback;
     private Transform playerLocation;
+    public bool retreating;
+    private float retreatTimer;
 
     // ranged enemy parameters
     [Header("Ranged-Specific Parameters")]
@@ -38,6 +40,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float projectileSpeed;
 
     
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -61,19 +65,31 @@ public class Enemy : MonoBehaviour
         {
             if (!knockback)
             {
-                transform.position += pathway * movementSpeed * Time.deltaTime;
+                if (!retreating)
+                {
+                    transform.position += pathway * movementSpeed * Time.deltaTime;
+                }
                 
+
             }
-            
+
         }
 
         if (enemyType == EnemyType.RANGED && !inPlayerRange)
         {
-            transform.position += pathway * movementSpeed * Time.deltaTime;
+            if (!retreating)
+            {
+                transform.position += pathway * movementSpeed * Time.deltaTime;
+            }
+            
         }
         else if (enemyType == EnemyType.RANGED && inPlayerRange)
         {
             shootTimer += Time.deltaTime;
+
+            Vector3 diff = (playerLocation.position - transform.position);
+            float angle = Mathf.Atan2(diff.y, diff.x);
+            transform.rotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
         }
 
         if (shootTimer >= maxTimeUntilShoot)
@@ -90,6 +106,17 @@ public class Enemy : MonoBehaviour
             KnockbackTimer();
         }
 
+        if (retreating)
+        {
+            transform.position += -pathway * movementSpeed * Time.deltaTime;
+            retreatTimer += Time.deltaTime;
+        }
+
+        if (retreatTimer >= 5f)
+        {
+            Destroy(gameObject);
+        }
+
         //transform.LookAt(playerLocation);
     }
 
@@ -97,7 +124,7 @@ public class Enemy : MonoBehaviour
     {
         GameObject temp = Instantiate(shootProjectile, firePos.position, Quaternion.identity);
 
-        temp.GetComponent<Rigidbody2D>().AddForce(firePos.up * projectileSpeed, ForceMode2D.Impulse);
+        temp.GetComponent<Rigidbody2D>().AddForce(firePos.right * projectileSpeed, ForceMode2D.Impulse);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -131,6 +158,12 @@ public class Enemy : MonoBehaviour
                 GetComponent<Rigidbody2D>().AddForce(direction2 * knockbackForce, ForceMode2D.Impulse);*/
                 break;
         }
+    }
+
+    public void EnemyDeath()
+    {
+        FindObjectOfType<PlayerStats>().AddMoney(20);
+        Destroy(gameObject);
     }
 
     private void KnockbackTimer()

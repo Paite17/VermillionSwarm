@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum GameState
 {
     PRE_WAVE,
     ACTIVE_WAVE,
+    BOSS_WAVE,
+    UPGRADE,
     POST_WAVE,
     DEATH
 }
@@ -31,9 +34,11 @@ public class GameManager : MonoBehaviour
     private float waveTimer; // the timer that counts down the current wave
     private float preWaveTimer; // the timer that counds down the prewave phase
 
+    [Header("System Stuff")]
     [SerializeField] private List<EntitySpawner> spawners; // a list of spawners that should automatically get filled on start
+    [SerializeField] private List<Upgrades> allUpgrades; // a list of all possible upgrades the player is currently able to get
 
-    private Player player;
+    private PlayerStats player;
 
     public float Score
     {
@@ -78,7 +83,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         FindSpawners();
-        player = FindObjectOfType<Player>();
+        FindAllUpgrades();
+        player = FindObjectOfType<PlayerStats>();
         wave = 1;
 
     }
@@ -148,7 +154,47 @@ public class GameManager : MonoBehaviour
 
     private void EndOfWave()
     {
+        state = GameState.UPGRADE;
+    }
 
+    private IEnumerator EndOfWaveLogic()
+    {
+
+        yield return new WaitForSeconds(1f);
+
+    }
+
+    private void WaveStart()
+    {
+
+    }
+
+    public void GameOver()
+    {
+        // will probably use a coroutine
+    }
+
+    public void DespawnEnemies()
+    {
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (var current in enemies)
+        {
+            //Destroy(current);
+            current.GetComponent<Enemy>().retreating = true;
+        }
+    }
+
+    private void FindAllUpgrades()
+    {
+        // get them
+        var upgrade = Resources.LoadAll("Upgrades", typeof(Upgrades)).Cast<Upgrades>();
+
+        // look through them
+        foreach (var current in upgrade)
+        {
+            allUpgrades.Add(current);
+        }
     }
 
 }

@@ -8,9 +8,9 @@ public class EntitySpawner : MonoBehaviour
     [SerializeField] private List<GameObject> entityPool;
 
     // a pulse means when the timer finishes to spawn an enemy
-    private float amountOfEnemiesPerPulse; // higher = more difficult
-    private float spawnerDifficulty; // higher = more difficult
-    private float timeBetweenPulses; // higher = easier
+    [SerializeField] private float amountOfEnemiesPerPulse; // higher = more difficult
+    [SerializeField] private float spawnerDifficulty; // higher = more difficult
+    [SerializeField] private float timeBetweenPulses; // higher = easier
 
     // timer
     private float pulseTimer;

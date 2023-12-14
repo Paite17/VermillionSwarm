@@ -62,4 +62,9 @@ public class PlayerStats : MonoBehaviour
             money -= 100;
         }
     }
+
+    public void AddMoney(float amount)
+    {
+        money += amount;
+    }
 }
