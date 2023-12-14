@@ -40,7 +40,7 @@ public class ShipDefenses : MonoBehaviour
             case ShieldState.ACTIVE:
                 SpriteRenderer current = GetComponent<SpriteRenderer>();
                 current.color = new Color32(255, 255, 255, 255);
-                GetComponent<PolygonCollider2D>().enabled = true;
+                GetComponent<CircleCollider2D>().enabled = true;
                 break;
             case ShieldState.RECOVERING:
                 SpriteRenderer current2 = GetComponent<SpriteRenderer>();

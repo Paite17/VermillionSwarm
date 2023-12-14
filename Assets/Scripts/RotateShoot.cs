@@ -23,7 +23,7 @@ public class RotateShoot : MonoBehaviour
     [SerializeField] bool beamEquipped = false;
     [SerializeField] bool flameTEquipped = false;
 
-    [SerializeField] AudioSource flameSound, beamSound, gunSound, sgSound;
+    [SerializeField] AudioSource flameSound, beamSound, gunSound, sgSound, cdIncomplete;
 
     bool beamFiring;
     bool beamResetting;
@@ -87,9 +87,13 @@ public class RotateShoot : MonoBehaviour
             if (!beamFiring && beamTime > 0)
             {
                 beamFiring = true;
-                beamSound.Play();
             }
             ActivateBeam();
+
+            if (!beamFiring && beamResetting)
+            {
+                cdIncomplete.Play();
+            }
         }
 
         if (Input.GetKey(KeyCode.Space) && flameTEquipped)
@@ -123,6 +127,7 @@ public class RotateShoot : MonoBehaviour
         if (beamTime > 0 && beamFiring)
         {
             beam.gameObject.SetActive(true);
+            beamSound.Play();
         }
     }
 

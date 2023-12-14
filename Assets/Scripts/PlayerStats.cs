@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -14,6 +15,8 @@ public class PlayerStats : MonoBehaviour
     public float baseHealth;
     public float baseShieldHealth;
 
+    public TMP_Text moneyText, scoreText, killsText;
+
     private void Start()
     {
         baseDamage = 10;
@@ -22,49 +25,65 @@ public class PlayerStats : MonoBehaviour
         shields = 1;
     }
 
-    void AddDamage()
+    private void Update()
+    {
+        UpdateText();
+    }
+
+    public void AddDamage()
     {
         if (money >= 50)
         {
             baseDamage += 10;
             money -= 50;
+            Debug.Log("damage up");
         }
     }
 
-    void AddHealth()
+    public void AddHealth()
     {
         if (money >= 50)
         {
             baseHealth += 1;
             money -= 50;
+            Debug.Log("health up");
         }
     }
 
-    void AddShieldHealth()
+    public void AddShieldHealth()
     {
 
     }
 
-    void AddTurret()
+    public void AddTurret()
     {
         if (turrets < 4 && money >= 200)
         {
             turrets += 1;
             money -= 200;
+            Debug.Log("turret up");
         }
     }
 
-    void AddShield()
+    public void AddShield()
     {
         if (shields < 8 && money >= 100)
         {
             shields += 1;
             money -= 100;
+            Debug.Log("shield up");
         }
     }
 
     public void AddMoney(float amount)
     {
         money += amount;
+    }
+
+    void UpdateText()
+    {
+        moneyText.text = "Stardust: " + $"{money:00000}";
+        scoreText.text = "Score: " + $"{score:00000}";
+        killsText.text = "Kills: " + $"{kills:00000}";
     }
 }
