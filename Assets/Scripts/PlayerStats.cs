@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -16,6 +17,7 @@ public class PlayerStats : MonoBehaviour
     public float baseShieldHealth;
 
     public TMP_Text moneyText, scoreText, killsText;
+    public RotateShoot player;
 
     private void Start()
     {
@@ -75,6 +77,16 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    public void AddTurnSpeed()
+    {
+        if (money >= 100 && player.rotationSpeed < 360)
+        {
+            player.rotationSpeed += 30;
+            money -= 100;
+            Debug.Log("turn speed up");
+        }
+    }
+
     public void AddMoney(float amount)
     {
         money += amount;
@@ -83,7 +95,7 @@ public class PlayerStats : MonoBehaviour
     void UpdateText()
     {
         moneyText.text = "Stardust: " + $"{money:00000}";
-        scoreText.text = "Score: " + $"{score:00000}";
-        killsText.text = "Kills: " + $"{kills:00000}";
+        scoreText.text = "Score: " + $"{score:000000}";
+        killsText.text = "Kills: " + $"{kills:0000}";
     }
 }

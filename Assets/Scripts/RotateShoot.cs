@@ -9,11 +9,11 @@ public class RotateShoot : MonoBehaviour
     [SerializeField] Transform beam, flamer;
     [SerializeField] Transform firePos, sgFirePos1, sgFirePos2, sgFirePos3;
     [SerializeField] GameObject shellPrefab;
-    [SerializeField] float rotationSpeed;
     [SerializeField] float cooldown;
     [SerializeField] float beamActiveTime;
     [SerializeField] float shellSpeed;
 
+    public float rotationSpeed;
     float fireCooldown;
     float beamTime;
     bool rotatingRight = false;
@@ -132,6 +132,11 @@ public class RotateShoot : MonoBehaviour
     }
 
     void ActivateFlamethrower()
+    {
+
+    }
+
+    void FireBackshots()
     {
 
     }
