@@ -24,4 +24,15 @@ public class Player : MonoBehaviour
     {
         
     }
+
+    public void TakeDamage(float amount)
+    {
+        health -= amount;
+
+        if (health <= 0)   
+        {
+            // GAMEOVER SEQUENCE
+            Debug.Log("Player died");
+        }
+    }
 }
