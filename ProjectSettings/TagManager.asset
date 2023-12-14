@@ -8,6 +8,7 @@ TagManager:
   - Shield
   - RangedEnemyAttackRange
   - Enemy
+  - Projectile
   layers:
   - Default
   - TransparentFX
