@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameState state;
     //[SerializeField] private GameObject energyField;
 
+    [SerializeField] private CardChoice cards;
     
     [SerializeField] private float score;
     [SerializeField] private float highscore;
@@ -140,12 +141,12 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        if (piGuyBoss.GetComponent<Enemy>().EnemyHealth <= 0 && state == GameState.BOSS_WAVE)
-        {
-            // beat boss
-            timesBossWasBeat++;
-            ui.HideBossUI();
-        }
+        //if (piGuyBoss.GetComponent<Enemy>().EnemyHealth <= 0 && state == GameState.BOSS_WAVE)
+        //{
+        //    // beat boss
+        //    timesBossWasBeat++;
+        //    ui.HideBossUI();
+        //}
     }
 
     // adds every spawner present on the map to the list
@@ -238,9 +239,10 @@ public class GameManager : MonoBehaviour
     }
 
     // pause stuff during upgrade phase
-    private void UpgradeState()
+    public void UpgradeState()
     {
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
+        //cards.PickRandomObjects();
         // ui activation
     }
 

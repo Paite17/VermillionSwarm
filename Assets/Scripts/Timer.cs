@@ -6,30 +6,30 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    public Time time;
+    private float timer;
+    private int currentMinute;
+    private int currentSecond;
     public TMP_Text timerText;
 
     private void Start()
     {
-        
+        // Initialize timer to 0
+        timer = 0f;
     }
 
     private void Update()
     {
+        // Update the timer
+        timer += Time.deltaTime;
+
+        // Calculate minutes and seconds
+        currentMinute = Mathf.FloorToInt(timer / 60f);
+        currentSecond = Mathf.FloorToInt(timer % 60f);
+
         TimeRunning();
     }
-
     private void TimeRunning()
     {
-        DateTime time = DateTime.Now;
-        string minute = LeadingZero(time.Minute);
-        string second = LeadingZero(time.Second);
-
-        timerText.text = minute + ":" + second;
-    }
-
-    string LeadingZero (int n)
-    {
-        return n.ToString().PadLeft(2, '0');
+        timerText.text = "Time - " + $"{currentMinute:00}" + ":" + $"{currentSecond:00}";
     }
 }

@@ -31,6 +31,14 @@ public class PlayerStats : MonoBehaviour
         UpdateText();
     }
 
+    public void DoubleFireRate()
+    {
+        if (player.cooldown > 0.126)
+        {
+            player.cooldown -= 0.125f;
+        }
+    }
+
     public void AddDamage()
     {
         if (money >= 50)
