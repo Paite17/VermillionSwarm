@@ -16,7 +16,7 @@ public class EntitySpawner : MonoBehaviour
     private float pulseTimer;
 
     // activation bool
-    private bool activated;
+    [SerializeField] private bool activated;
 
     public float AmountOfEnemiesPerPulse
     {
@@ -76,9 +76,10 @@ public class EntitySpawner : MonoBehaviour
 
     private void SpawnPulse()
     {
+        Debug.Log("SpawnPulse()");
         // make some deviations in spawn position
-        int xRand = Random.Range(-3, 4);
-        int yRand = Random.Range(-3, 4);
+        int xRand = Random.Range(-5, 6);
+        int yRand = Random.Range(-5, 6);
 
         Vector3 newRandomPos;
 
@@ -99,6 +100,7 @@ public class EntitySpawner : MonoBehaviour
         {
             for (int i = 0; i < amountOfEnemiesPerPulse; i++)
             {
+                Debug.Log("Spawn enemies");
                 // get random entity from pool
                 int randomEntity = Random.Range(0, entityPool.Count);
 

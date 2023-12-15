@@ -32,13 +32,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float startCountDown; // counting down at the beginning of the game
     private float kills;
 
-    private float waveTimer; // the timer that counts down the current wave
-    private float preWaveTimer; // the timer that counds down the prewave phase
+    [SerializeField] private float waveTimer; // the timer that counts down the current wave
+    [SerializeField] private float preWaveTimer; // the timer that counds down the prewave phase
 
     [Header("System Stuff")]
     [SerializeField] private List<EntitySpawner> spawners; // a list of spawners that should automatically get filled on start
     [SerializeField] private List<Upgrades> allUpgrades; // a list of all possible upgrades the player is currently able to get
-    [SerializeField] private int wavesUntilBoss; // counts down each wave until the boss shows up
+    [SerializeField] private int wavesUntilBoss = 5; // counts down each wave until the boss shows up
     [SerializeField] private int baseWaveUntilBoss; // the int used to reset the above counter
     [SerializeField] private int timesBossWasBeat; // a value keeping track of how many times you beat pi guy for his name change
     [SerializeField] private UIScript ui; // ref for the UI 
@@ -118,6 +118,8 @@ public class GameManager : MonoBehaviour
         player = FindObjectOfType<PlayerStats>();
         wave = 1;
         wavesUntilBoss = baseWaveUntilBoss;
+        waveTimer = maxWaveTime;
+        preWaveTimer = maxPreWaveTime;
 
     }
 
@@ -189,34 +191,53 @@ public class GameManager : MonoBehaviour
             // START wave
             if (wavesUntilBoss > 0)
             {
+                Debug.Log("Wave should start");
                 WaveStart();
+            }
+            else
+            {
+                BossWaveStart();
             }
         }
     }
 
     private void ActiveWaveCounter()
     {
-        waveTimer += Time.deltaTime;
+        Debug.Log("guh");
+        waveTimer -= Time.deltaTime;
 
-        if (waveTimer >= maxWaveTime)
+        if (waveTimer <= 0)
         {
             // END WAVE
             EndOfWave();
-        }
-        else
-        {
-            BossWaveStart();
         }
     }
 
     private void EndOfWave()
     {
+        Debug.Log("Wave Ended");
+        //StartCoroutine(EndOfWaveLogic());
 
-        StartCoroutine(EndOfWaveLogic());
-        
+
+        // logic
+        DeactivateSpawners();
+        bool d = false;
+        waveTimer = maxWaveTime;
+
+        if (!d)
+        {
+            wave++;
+            wavesUntilBoss--;
+            d = true;
+        }
+        DespawnEnemies();
+
+        state = GameState.UPGRADE;
+        UpgradeState();
+
     }
 
-    private IEnumerator EndOfWaveLogic()
+   /* private IEnumerator EndOfWaveLogic()
     {
        
         // logic
@@ -236,19 +257,21 @@ public class GameManager : MonoBehaviour
 
         state = GameState.UPGRADE;
         UpgradeState();
-    }
+    } */
 
     // pause stuff during upgrade phase
     public void UpgradeState()
     {
-        //Time.timeScale = 0;
-        //cards.PickRandomObjects();
-        // ui activation
+        Debug.Log("Upgrading");
+        Time.timeScale = 0;
+        cards.PickRandomObjects();
+        
     }
 
     private void WaveStart()
     {
         state = GameState.ACTIVE_WAVE;
+        ActivateSpawners();
 
         // any UI related things
         waveTimer = maxWaveTime;
@@ -264,7 +287,7 @@ public class GameManager : MonoBehaviour
         // set music
 
         // spawn boss
-        Instantiate(piGuyBoss);
+       // Instantiate(piGuyBoss);
     }
 
     public void GameOver()

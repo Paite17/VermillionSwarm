@@ -40,7 +40,7 @@ public class UIScript : MonoBehaviour
 
         if (gameManager.State == GameState.BOSS_WAVE)
         {
-
+            ShowBossUI();
         }
     }
 

@@ -60,7 +60,7 @@ Transform:
   m_GameObject: {fileID: 2171055592006405642}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.059137, y: -1.5439491, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1044446654295894670}
@@ -132,16 +132,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 1
-  enemyDamage: 0
+  enemyDamage: 1
   movementSpeed: 5
   knockbackForce: 0
-  enemyHealth: 100
+  enemyHealth: 30
   retreating: 0
   inPlayerRange: 0
   shootProjectile: {fileID: 5640142522702248674, guid: 646f6b4071bbafb4093d206e5109b0ee, type: 3}
   maxTimeUntilShoot: 3.5
   firePos: {fileID: 1044446654295894670}
-  projectileSpeed: 40
+  projectileSpeed: 10
 --- !u!61 &4242516752049316073
 BoxCollider2D:
   m_ObjectHideFlags: 0

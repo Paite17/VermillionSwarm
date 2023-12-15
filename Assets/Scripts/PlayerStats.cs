@@ -20,7 +20,7 @@ public class PlayerStats : MonoBehaviour
 
     private void Start()
     {
-        baseDamage = 10;
+        baseDamage = 20;
         baseHealth = 5;
         baseShieldHealth = 3;
         shields = 1;
@@ -104,6 +104,8 @@ public class PlayerStats : MonoBehaviour
     public void AddMoney(float amount)
     {
         money += amount;
+        score += 100;
+        kills += 1;
     }
 
     void UpdateText()

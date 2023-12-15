@@ -35,4 +35,19 @@ public class Player : MonoBehaviour
             Debug.Log("Player died");
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Enemy":
+                TakeDamage(collision.gameObject.GetComponent<Enemy>().EnemyDamage);
+                break;
+            case "Projectile":
+                // hard coded :DDDD
+                TakeDamage(1f);
+                break;
+        }
+    }
+
 }

@@ -17,6 +17,7 @@ public class CardChoice : MonoBehaviour
     public Transform cardPos3;
 
     public GameObject cardUI;
+    public AudioSource cardAudio, menuPopAudio;
 
     public void Update()
     {
@@ -62,6 +63,7 @@ public class CardChoice : MonoBehaviour
             Debug.Log("Selected Object 3: " + selectedObject3.name);
 
             cardUI.gameObject.SetActive(true);
+            menuPopAudio.Play();
             Time.timeScale = 0f;
 
             Instantiate(selectedObject1, cardPos1.position, Quaternion.identity, cardUI.transform);
@@ -78,5 +80,10 @@ public class CardChoice : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         cardUI.gameObject.SetActive(false);
+    }
+
+    public void PlayCardChoiceSound()
+    {
+        cardAudio.Play();
     }
 }

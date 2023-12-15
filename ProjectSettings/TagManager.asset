@@ -9,6 +9,7 @@ TagManager:
   - RangedEnemyAttackRange
   - Enemy
   - Projectile
+  - PlayerProj
   layers:
   - Default
   - TransparentFX

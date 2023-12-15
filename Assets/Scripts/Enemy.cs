@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     // general parameters
     [Header("General Parameters")]
     [SerializeField] private EnemyType enemyType;
-    [SerializeField] private float enemyDamage;
+    [SerializeField] private float enemyDamage = 1f;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float knockbackForce;
     [SerializeField] private float enemyHealth;
@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerLocation = FindObjectOfType<Player>().gameObject.transform;
+        playerLocation = FindObjectOfType<PlayerStats>().gameObject.transform;
         //StartMoving();
     }
 
@@ -173,7 +173,17 @@ public class Enemy : MonoBehaviour
                 //Vector2 force = direction * knockbackForce;
                 GetComponent<Rigidbody2D>().AddForce(direction2 * knockbackForce, ForceMode2D.Impulse);*/
                 break;
+            case "PlayerProj":
+                TakeDamage(GameObject.Find("MainShip").GetComponent<PlayerStats>().baseDamage);
+                break;
+
+
         }
+    }
+
+    public void TakeDamage(float amount)
+    {
+        enemyHealth -= amount;
     }
 
     public void EnemyDeath()
@@ -203,4 +213,6 @@ public class Enemy : MonoBehaviour
                 break;
         }
     }
+
+
 }
