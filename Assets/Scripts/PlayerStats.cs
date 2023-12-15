@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -15,12 +16,13 @@ public class PlayerStats : MonoBehaviour
     public float baseHealth;
     public float baseShieldHealth;
 
-    public TMP_Text moneyText, scoreText, killsText;
+    public TMP_Text moneyText, scoreText, killsText, healthText;
     public RotateShoot player;
+    public Player playerH;
 
     private void Start()
     {
-        baseDamage = 20;
+        baseDamage = 30;
         baseHealth = 5;
         baseShieldHealth = 3;
         shields = 1;
@@ -113,5 +115,6 @@ public class PlayerStats : MonoBehaviour
         moneyText.text = "Stardust: " + $"{money:00000}";
         scoreText.text = "Score: " + $"{score:000000}";
         killsText.text = "Kills: " + $"{kills:0000}";
+        healthText.text = "Health: " + $"{playerH.health}";
     }
 }

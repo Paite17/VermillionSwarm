@@ -21,10 +21,7 @@ public class CardChoice : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKey(KeyCode.Q))
-        {
-            PickRandomObjects();
-        }
+        
     }
 
     public void PickRandomObjects()

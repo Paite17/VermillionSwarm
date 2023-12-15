@@ -47,6 +47,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject piGuyBoss; // the gameobject for pi guy himself
 
     private PlayerStats player;
+    public Transform bossSpawn;
+    public AudioSource bossMusic;
+    public AudioSource mainSFX;
 
     public float Score
     {
@@ -143,12 +146,12 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        //if (piGuyBoss.GetComponent<Enemy>().EnemyHealth <= 0 && state == GameState.BOSS_WAVE)
-        //{
-        //    // beat boss
-        //    timesBossWasBeat++;
-        //    ui.HideBossUI();
-        //}
+        if (piGuyBoss.GetComponent<Enemy>().EnemyHealth <= 0 && state == GameState.BOSS_WAVE)
+        {
+           // beat boss
+           timesBossWasBeat++;
+           ui.HideBossUI();
+        }
     }
 
     // adds every spawner present on the map to the list
@@ -213,7 +216,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void EndOfWave()
+    public void EndOfWave()
     {
         Debug.Log("Wave Ended");
         //StartCoroutine(EndOfWaveLogic());
@@ -265,7 +268,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("Upgrading");
         Time.timeScale = 0;
         cards.PickRandomObjects();
-        
+        //wavesUntilBoss--;
+
+        if (wavesUntilBoss > 0)
+        {
+            WaveStart();
+            ui.HideBossUI();
+        }
+        else
+        {
+            BossWaveStart();
+        }
     }
 
     private void WaveStart()
@@ -285,9 +298,11 @@ public class GameManager : MonoBehaviour
         // set UI things active
         ui.ShowBossUI();
         // set music
+        mainSFX.Stop();
+        bossMusic.Play();
 
         // spawn boss
-       // Instantiate(piGuyBoss);
+        Instantiate(piGuyBoss, bossSpawn.position, Quaternion.identity);
     }
 
     public void GameOver()
@@ -305,6 +320,11 @@ public class GameManager : MonoBehaviour
             //Destroy(current);
             current.GetComponent<Enemy>().retreating = true;
         }
+    }
+
+    public void ResetBossCount()
+    {
+        wavesUntilBoss = baseWaveUntilBoss;
     }
 
     private void FindAllUpgrades()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 
 public enum EnemyType
@@ -17,7 +18,7 @@ public class Enemy : MonoBehaviour
 {
     // general parameters
     [Header("General Parameters")]
-    [SerializeField] private EnemyType enemyType;
+    public EnemyType enemyType;
     [SerializeField] private float enemyDamage = 1f;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float knockbackForce;
@@ -39,7 +40,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform firePos;
     [SerializeField] private float projectileSpeed;
 
-
+    private Rigidbody2D rb;
 
     public float EnemyHealth
     {
@@ -52,10 +53,18 @@ public class Enemy : MonoBehaviour
         get { return enemyDamage; }
     }
 
+
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         playerLocation = FindObjectOfType<PlayerStats>().gameObject.transform;
+
+        if (enemyType == EnemyType.PI_GUY)
+        {
+            FindObjectOfType<UIScript>().maxBossHealth = enemyHealth;
+            FindObjectOfType<UIScript>().bossRef = this;
+        }
         //StartMoving();
     }
 
@@ -77,11 +86,18 @@ public class Enemy : MonoBehaviour
                 if (!retreating)
                 {
                     transform.position += pathway * movementSpeed * Time.deltaTime;
+                   
                 }
                 
 
             }
 
+        }
+
+        if (enemyType == EnemyType.PI_GUY)
+        {
+            transform.position += pathway * movementSpeed * Time.deltaTime;
+            rb.velocity = Vector3.zero;
         }
 
         if (enemyType == EnemyType.RANGED && !inPlayerRange)
@@ -152,6 +168,9 @@ public class Enemy : MonoBehaviour
                         collision.gameObject.GetComponent<Player>().TakeDamage(enemyDamage);
                         Destroy(gameObject);
                         break;
+                    case EnemyType.PI_GUY:
+                        collision.gameObject.GetComponent<ShipDefenses>().TakeShieldDamage(enemyDamage);
+                        break;
                 }
                 /*knockback = true;
                 collision.gameObject.GetComponent<Player>().TakeDamage(enemyDamage);
@@ -165,6 +184,9 @@ public class Enemy : MonoBehaviour
                     case EnemyType.SUICIDE_BOMBER:
                         collision.gameObject.GetComponent<ShipDefenses>().TakeShieldDamage(enemyDamage);
                         Destroy(gameObject);
+                        break;
+                    case EnemyType.PI_GUY:
+                        collision.gameObject.GetComponent<ShipDefenses>().TakeShieldDamage(enemyDamage);
                         break;
                 }
                 /*knockback = true;
@@ -188,6 +210,12 @@ public class Enemy : MonoBehaviour
 
     public void EnemyDeath()
     {
+        if (enemyType == EnemyType.PI_GUY)
+        {
+            FindObjectOfType<GameManager>().ResetBossCount();
+            FindObjectOfType<GameManager>().EndOfWave();
+            FindObjectOfType<UIScript>().HideBossUI();
+        }
         FindObjectOfType<PlayerStats>().AddMoney(20);
         Destroy(gameObject);
     }

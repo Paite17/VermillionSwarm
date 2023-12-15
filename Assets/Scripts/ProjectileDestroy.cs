@@ -21,6 +21,12 @@ public class ProjectileDestroy : MonoBehaviour
                 collision.gameObject.GetComponent<ShipDefenses>().HitCapacity--;
                 Destroy(gameObject);
                 break;
+            case "Enemy":
+                if (collision.gameObject.GetComponent<Enemy>().enemyType == EnemyType.PI_GUY)
+                {
+                    Destroy(gameObject);
+                }
+                break;
         }
         
     }

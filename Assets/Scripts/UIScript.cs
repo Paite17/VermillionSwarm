@@ -14,6 +14,8 @@ public class UIScript : MonoBehaviour
     
 
     private float bossHealthPercentage;
+    public float maxBossHealth;
+    public Enemy bossRef;
     private float waveTimePercentage;
 
     [Header("Systems")]
@@ -42,6 +44,12 @@ public class UIScript : MonoBehaviour
         {
             ShowBossUI();
         }
+
+        if (gameManager.State == GameState.BOSS_WAVE)
+        {
+            bossHealthPercentage = Mathf.Round((100 * bossRef.EnemyHealth) / maxBossHealth) / 100;
+            bossHealthBar.fillAmount = bossHealthPercentage;
+        }
     }
 
     public void ShowBossUI()
@@ -51,26 +59,26 @@ public class UIScript : MonoBehaviour
         int nameNum = gameManager.TimesBossWasBeat;
         int last = nameNum % 10;
 
-        int theNumber = last - 1;
-        if (theNumber < 1)
+        
+        if (last < 1)
         {
-            theNumber = 1;
+            last = 1;
         }
 
-        switch (theNumber)
+        switch (last)
         {
 
             case 1:
                 bossName.text = "Pi Guy";
                     break;
             case 2:
-                bossName.text = "Pi Guy the " + theNumber + "nd";
+                bossName.text = "Pi Guy the " + last + "nd";
                 break;
             case 3:
-                bossName.text = "Pi Guy the " + theNumber + "rd";
+                bossName.text = "Pi Guy the " + last + "rd";
                 break;
             default:
-                bossName.text = "Pi Guy the " + theNumber + "th";
+                bossName.text = "Pi Guy the " + last + "th";
                 break;
         }
         

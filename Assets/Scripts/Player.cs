@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float health;
+    public float health;
+    public GameObject deathScreen;
+    public AudioSource deathSound, mainSFX;
+    public LayerMask piGuy;
     // PUT UPGRADE LIST HERE 
 
     public float Health
@@ -31,7 +34,10 @@ public class Player : MonoBehaviour
 
         if (health <= 0)   
         {
-            // GAMEOVER SEQUENCE
+            Time.timeScale = 0;
+            deathScreen.gameObject.SetActive(true);
+            deathSound.Play();
+            mainSFX.Stop();
             Debug.Log("Player died");
         }
     }
