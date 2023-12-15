@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 {
 
     [SerializeField] GameState state;
-    [SerializeField] private GameObject energyField;
+    //[SerializeField] private GameObject energyField;
 
     
     [SerializeField] private float score;
@@ -124,10 +124,10 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         // debug probably
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        /*if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Instantiate(energyField);
-        }
+        } */
 
         // timers
         switch (state)

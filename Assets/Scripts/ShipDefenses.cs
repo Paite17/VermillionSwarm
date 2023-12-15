@@ -13,8 +13,10 @@ public class ShipDefenses : MonoBehaviour
     [SerializeField] float hitCapacity;
     [SerializeField] float rechargeTimer;
     [SerializeField] private ShieldState shieldState;
-
+    
     float rTimer;
+
+    public float maxHitCapacity;
 
     private void Start()
     {
@@ -56,7 +58,7 @@ public class ShipDefenses : MonoBehaviour
 
         if (rTimer > rechargeTimer)
         {
-            hitCapacity = 100;
+            hitCapacity = 3;
             shieldState = ShieldState.ACTIVE;
         }
     }

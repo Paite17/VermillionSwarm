@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -23,7 +22,7 @@ public class PlayerStats : MonoBehaviour
     {
         baseDamage = 10;
         baseHealth = 5;
-        baseShieldHealth = 5;
+        baseShieldHealth = 3;
         shields = 1;
     }
 
@@ -54,7 +53,14 @@ public class PlayerStats : MonoBehaviour
 
     public void AddShieldHealth()
     {
+        baseShieldHealth++;
+        money -= 200;
+        var shield = FindObjectsOfType<ShipDefenses>();
 
+        foreach (var current in shield)
+        {
+            current.maxHitCapacity = baseShieldHealth;
+        }
     }
 
     public void AddTurret()
