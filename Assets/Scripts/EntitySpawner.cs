@@ -1,0 +1,121 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+// ported from FishFinger
+public class EntitySpawner : MonoBehaviour
+{
+    [SerializeField] private List<GameObject> entityPool;
+
+    // a pulse means when the timer finishes to spawn an enemy
+    [SerializeField] private float amountOfEnemiesPerPulse; // higher = more difficult
+    [SerializeField] private float spawnerDifficulty; // higher = more difficult
+    [SerializeField] private float timeBetweenPulses; // higher = easier
+
+    // timer
+    private float pulseTimer;
+
+    // activation bool
+    [SerializeField] private bool activated;
+
+    public float AmountOfEnemiesPerPulse
+    {
+        get { return amountOfEnemiesPerPulse; }
+        set { amountOfEnemiesPerPulse = value; }
+    }
+
+    public float SpawnerDifficulty
+    {
+        get { return spawnerDifficulty; }
+        set { spawnerDifficulty = value; }
+    }
+
+    public float TimeBetweenPulses
+    {
+        get { return timeBetweenPulses; }
+        set { timeBetweenPulses = value; }
+    }
+
+    public bool Activated
+    {
+        get { return activated; }
+        set { activated = value; }
+    }
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (spawnerDifficulty < 1)
+        {
+            spawnerDifficulty = 1;
+        }
+
+        if (spawnerDifficulty > 20)
+        {
+            spawnerDifficulty = 20;
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        if (activated)
+        {
+            pulseTimer += Time.deltaTime;
+        }
+        
+
+        if (pulseTimer > timeBetweenPulses)
+        {
+            SpawnPulse();
+            pulseTimer = 0;
+        }
+    }
+
+    private void SpawnPulse()
+    {
+        Debug.Log("SpawnPulse()");
+        // make some deviations in spawn position
+        int xRand = Random.Range(-5, 6);
+        int yRand = Random.Range(-5, 6);
+
+        Vector3 newRandomPos;
+
+        // check if we wanna add or subtrack the above ints on the vector
+        int c = Random.Range(0, 1);
+
+        if (c == 0)
+        {
+            newRandomPos = new Vector3(transform.position.x + xRand, transform.position.y + yRand, transform.position.z);
+        }
+        else
+        {
+            newRandomPos = new Vector3(transform.position.x - xRand, transform.position.y - yRand, transform.position.z);
+        }
+        // check if we wanna spawn
+        int shouldSpawn = Random.Range(0, 20);
+        if (shouldSpawn <= spawnerDifficulty)
+        {
+            for (int i = 0; i < amountOfEnemiesPerPulse; i++)
+            {
+                Debug.Log("Spawn enemies");
+                // get random entity from pool
+                int randomEntity = Random.Range(0, entityPool.Count);
+
+
+                GameObject temp = Instantiate(entityPool[randomEntity], newRandomPos, transform.rotation);
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    public void ResetTimer()
+    {
+        pulseTimer = 0;
+    }
+}
