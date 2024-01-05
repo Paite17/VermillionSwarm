@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 
 public enum EnemyType
@@ -40,6 +39,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform firePos;
     [SerializeField] private float projectileSpeed;
 
+    // multiplier enemy parameters
+    [Header("Multiplier-Specific Parameters")]
+    [SerializeField] private int numberOfEnemySpawns;
+
     private Rigidbody2D rb;
 
     public float EnemyHealth
@@ -62,6 +65,12 @@ public class Enemy : MonoBehaviour
 
         if (enemyType == EnemyType.PI_GUY)
         {
+            int bossBeat = FindObjectOfType<GameManager>().TimesBossWasBeat;
+
+            if (bossBeat > 1)
+            {
+                IncreasePiGuyHealth(bossBeat);
+            }
             FindObjectOfType<UIScript>().maxBossHealth = enemyHealth;
             FindObjectOfType<UIScript>().bossRef = this;
         }
@@ -152,9 +161,18 @@ public class Enemy : MonoBehaviour
 
     private void ShootProjectile()
     {
-        GameObject temp = Instantiate(shootProjectile, firePos.position, Quaternion.identity);
+        if (!retreating)
+        {
+            GameObject temp = Instantiate(shootProjectile, firePos.position, Quaternion.identity);
 
-        temp.GetComponent<Rigidbody2D>().AddForce(firePos.right * projectileSpeed, ForceMode2D.Impulse);
+            temp.GetComponent<Rigidbody2D>().AddForce(firePos.right * projectileSpeed, ForceMode2D.Impulse);
+        }
+    }
+
+    // increases the health of pi guy with each rematch you do
+    private void IncreasePiGuyHealth(int bossBeat)
+    {
+        enemyHealth += (enemyHealth * bossBeat) / 0.5f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -213,11 +231,18 @@ public class Enemy : MonoBehaviour
         if (enemyType == EnemyType.PI_GUY)
         {
             FindObjectOfType<GameManager>().ResetBossCount();
+            FindObjectOfType<GameManager>().TimesBossWasBeat++;
             FindObjectOfType<GameManager>().EndOfWave();
             FindObjectOfType<UIScript>().HideBossUI();
         }
         FindObjectOfType<PlayerStats>().AddMoney(20);
         Destroy(gameObject);
+
+        // multiply into the specified amounts
+        if (enemyType == EnemyType.MULTIPLIER)
+        {
+
+        }
     }
 
     private void KnockbackTimer()

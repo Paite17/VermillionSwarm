@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
     public int TimesBossWasBeat
     {
         get { return timesBossWasBeat; }
+        set { timesBossWasBeat = value; }
     }
 
     private void Start()
@@ -123,7 +124,7 @@ public class GameManager : MonoBehaviour
         wavesUntilBoss = baseWaveUntilBoss;
         waveTimer = maxWaveTime;
         preWaveTimer = maxPreWaveTime;
-
+        timesBossWasBeat = 1;
     }
 
 
@@ -146,12 +147,17 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        if (piGuyBoss.GetComponent<Enemy>().EnemyHealth <= 0 && state == GameState.BOSS_WAVE)
+        /*if (piGuyBoss.GetComponent<Enemy>().EnemyHealth <= 0 && state == GameState.BOSS_WAVE)
         {
-           // beat boss
-           timesBossWasBeat++;
-           ui.HideBossUI();
-        }
+            Debug.Log("BOSS DEAD");
+            // beat boss
+            timesBossWasBeat++;
+            ui.HideBossUI();
+            EndOfWave();
+
+        } */
+
+        // ^ pretty sure this does nothing lol
     }
 
     // adds every spawner present on the map to the list
@@ -206,7 +212,7 @@ public class GameManager : MonoBehaviour
 
     private void ActiveWaveCounter()
     {
-        Debug.Log("guh");
+        //Debug.Log("guh");
         waveTimer -= Time.deltaTime;
 
         if (waveTimer <= 0)
@@ -221,6 +227,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("Wave Ended");
         //StartCoroutine(EndOfWaveLogic());
 
+        // boss
+        if (state == GameState.BOSS_WAVE)
+        {
+            bossMusic.Stop();
+            mainSFX.Play();
+        }
 
         // logic
         DeactivateSpawners();

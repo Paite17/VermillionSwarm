@@ -1,0 +1,9 @@
+Version 1.4:
+>Adjusted Pi Guy:
+   >Now initially spawns with 5000 health (was 25000)
+   >Health will now ramp up with each consecutive rematch
+>Updated main menu music
+>Fixed the upgrade buttons at the bottom of the screen
+>Fixed the next wave not starting properly after defeating Pi Guy
+>Fixed the 'Shield Capacity' button not having a check for if you do not have enough money to afford it
+>Fixed ranged enemies shooting while retreating after a wave has ended

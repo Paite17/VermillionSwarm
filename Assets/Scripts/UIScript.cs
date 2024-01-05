@@ -72,14 +72,20 @@ public class UIScript : MonoBehaviour
                 bossName.text = "Pi Guy";
                     break;
             case 2:
-                bossName.text = "Pi Guy the " + last + "nd";
+                bossName.text = "Pi Guy the " + nameNum + "nd";
                 break;
             case 3:
-                bossName.text = "Pi Guy the " + last + "rd";
+                bossName.text = "Pi Guy the " + nameNum + "rd";
                 break;
             default:
-                bossName.text = "Pi Guy the " + last + "th";
+                bossName.text = "Pi Guy the " + nameNum + "th";
                 break;
+        }
+
+        // a just in case thing cus i clearly don't think beyond the numbers 1 to 9
+        if (nameNum >= 10 || nameNum <= 20)
+        {
+            bossName.text = "Pi Guy the " + nameNum + "th";
         }
         
 

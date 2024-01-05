@@ -63,14 +63,18 @@ public class PlayerStats : MonoBehaviour
 
     public void AddShieldHealth()
     {
-        baseShieldHealth++;
-        money -= 200;
-        var shield = FindObjectsOfType<ShipDefenses>();
-
-        foreach (var current in shield)
+        if (money >= 200)
         {
-            current.maxHitCapacity = baseShieldHealth;
+            baseShieldHealth++;
+            money -= 200;
+            var shield = FindObjectsOfType<ShipDefenses>();
+
+            foreach (var current in shield)
+            {
+                current.maxHitCapacity = baseShieldHealth;
+            }
         }
+        
     }
 
     public void AddTurret()

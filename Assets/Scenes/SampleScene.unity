@@ -504,7 +504,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1546936879}
         m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
         m_MethodName: AddHealth
         m_Mode: 1
@@ -1037,7 +1037,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1546936879}
         m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
         m_MethodName: AddDamage
         m_Mode: 1
@@ -2607,7 +2607,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -649.5, y: 0}
+  m_AnchoredPosition: {x: -649.50006, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &347213338
@@ -3648,7 +3648,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1546936879}
         m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
         m_MethodName: AddTurnSpeed
         m_Mode: 1
@@ -5916,9 +5916,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1546936879}
         m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
-        m_MethodName: AddShieldHealth
+        m_MethodName: AddShield
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14645,7 +14645,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1546936879}
         m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
         m_MethodName: AddTurret
         m_Mode: 1
@@ -14917,7 +14917,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1546936879}
         m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
         m_MethodName: AddShieldHealth
         m_Mode: 1

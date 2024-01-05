@@ -14,7 +14,7 @@ public class ShipDefenses : MonoBehaviour
     [SerializeField] float rechargeTimer;
     [SerializeField] private ShieldState shieldState;
     
-    float rTimer;
+    [SerializeField] private float rTimer;
 
     public float maxHitCapacity;
 
