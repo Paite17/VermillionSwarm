@@ -14,19 +14,13 @@ Version 1.4:
 
 TODO:
 >Fix turrets not existing
->fix pi guy decendant name bug (11, 12, 13) - done
->Maybe make the button upgrades into additional card upgrades????? (suggested by em i think)
+>Maybe make the button upgrades into additional card upgrades
 >Finish multiplier enemy code
->Fix shields not respawning (shields seem to not respawn after already respawning once beforehand)
->Pi Guy death sound - done
->Pi Guy rematch voicelines - done
->Fix blue nebula upgrade (doesn't do damage) - done
 >Raise difficulty after a while (maybe increase spawn rates after a certain number of waves, or maybe they get faster?)
 >Decrease appearance of double firerate upgrade?
 >Fix backshot projectile sometimes getting caught on the red shield
->Does the laser upgrade ever actually appear????? - fixed
->when more cards are added make a check that replaces duplicates - no longer needed probably
 >After the first pi guy encounter make the amount of waves until you find him again randomised between a range?
 >highscore saving and menu to display them
 >blue nebula hitbox size changes
 >Backshot can kill your own shields
+>Mobile version
