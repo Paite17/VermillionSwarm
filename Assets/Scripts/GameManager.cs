@@ -45,6 +45,11 @@ public class GameManager : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] private GameObject piGuyBoss; // the gameobject for pi guy himself
+    [SerializeField] private AudioClip piGuyIntroVoice; // the normal pi guy voiceline
+    [SerializeField] private AudioClip piGuyRematchVoice; // the voiceline for rematching pi guy
+    [SerializeField] private AudioClip piGuyDeath1;
+    [SerializeField] private AudioClip piGuyDeath2;
+    [SerializeField] private AudioSource piGuySource; // the source of all pi guy audio
 
     private PlayerStats player;
     public Transform bossSpawn;
@@ -232,6 +237,17 @@ public class GameManager : MonoBehaviour
         {
             bossMusic.Stop();
             mainSFX.Play();
+
+            // pi guy dies.mp3
+            if (Random.Range(0, 1) == 1)
+            {
+                piGuySource.clip = piGuyDeath1;
+            }
+            else
+            {
+                piGuySource.clip = piGuyDeath2;
+            }
+            piGuySource.Play();
         }
 
         // logic
@@ -312,6 +328,16 @@ public class GameManager : MonoBehaviour
         // set music
         mainSFX.Stop();
         bossMusic.Play();
+        // pi guy voiceline
+        if (timesBossWasBeat > 1)
+        {
+            piGuySource.clip = piGuyRematchVoice;
+        }
+        else
+        {
+            piGuySource.clip = piGuyIntroVoice;
+        }
+        piGuySource.Play();
 
         // spawn boss
         Instantiate(piGuyBoss, bossSpawn.position, Quaternion.identity);

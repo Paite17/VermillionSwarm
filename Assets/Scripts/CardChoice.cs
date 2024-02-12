@@ -42,6 +42,20 @@ public class CardChoice : MonoBehaviour
                 do
                 {
                     randomIndex = Random.Range(0, selectableObjects.Count);
+
+                    // make the laser rarer
+                    if (randomIndex == 0)
+                    {
+                        if (Random.Range(0, 6) < 4)
+                        {
+                            randomIndex = Random.Range(1, selectableObjects.Count);
+                        }
+                        else
+                        {
+                            randomIndex = 0;
+                        }
+                    }
+
                 } while (selectedIndices.Contains(randomIndex));
 
                 selectedIndices.Add(randomIndex);

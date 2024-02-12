@@ -2,25 +2,31 @@ Version 1.4:
 >Adjusted Pi Guy:
    >Now initially spawns with 5000 health (was 25000)
    >Health will now ramp up with each consecutive rematch
+>Added additional voicelines for Pi Guy
 >Updated main menu music
 >Fixed the upgrade buttons at the bottom of the screen
 >Fixed the next wave not starting properly after defeating Pi Guy
 >Fixed the 'Shield Capacity' button not having a check for if you do not have enough money to afford it
 >Fixed ranged enemies shooting while retreating after a wave has ended
+>Fixed the 'Annihilator Beam' powerup not appearing as a card after a wave
+>Fixed 'Blue Nebula' upgrade not doing damage
+>Fixed shields not being able to respawn after already respawning once before
 
 TODO:
 >Fix turrets not existing
->fix pi guy decendant name bug (11, 12, 13) - done probably
+>fix pi guy decendant name bug (11, 12, 13) - done
 >Maybe make the button upgrades into additional card upgrades????? (suggested by em i think)
 >Finish multiplier enemy code
 >Fix shields not respawning (shields seem to not respawn after already respawning once beforehand)
->Pi Guy death sound
->Pi Guy rematch voicelines
->Fix blue nebula upgrade (doesn't do damage)
+>Pi Guy death sound - done
+>Pi Guy rematch voicelines - done
+>Fix blue nebula upgrade (doesn't do damage) - done
 >Raise difficulty after a while (maybe increase spawn rates after a certain number of waves, or maybe they get faster?)
 >Decrease appearance of double firerate upgrade?
 >Fix backshot projectile sometimes getting caught on the red shield
->Does the laser upgrade ever actually appear?????
->when more cards are added make a check that replaces duplicates
+>Does the laser upgrade ever actually appear????? - fixed
+>when more cards are added make a check that replaces duplicates - no longer needed probably
 >After the first pi guy encounter make the amount of waves until you find him again randomised between a range?
 >highscore saving and menu to display them
+>blue nebula hitbox size changes
+>Backshot can kill your own shields

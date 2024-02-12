@@ -9,6 +9,7 @@ public enum EnemyType
     RANGED,
     STEALTH,
     MULTIPLIER,
+    MULTIPLIER_SPLIT,
     PI_GUY
 }
 
@@ -42,6 +43,8 @@ public class Enemy : MonoBehaviour
     // multiplier enemy parameters
     [Header("Multiplier-Specific Parameters")]
     [SerializeField] private int numberOfEnemySpawns;
+    [SerializeField] private GameObject splitEnemy; // the gameobject that spawns after death
+    
 
     private Rigidbody2D rb;
 
@@ -218,6 +221,16 @@ public class Enemy : MonoBehaviour
                 break;
 
 
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "PlayerProj":
+                TakeDamage(GameObject.Find("MainShip").GetComponent<PlayerStats>().baseDamage);
+                break;
         }
     }
 
