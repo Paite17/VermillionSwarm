@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -55,7 +54,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (money >= 50)
         {
-            baseHealth += 1;
+            FindObjectOfType<Player>().Health += 1;
             money -= 50;
             Debug.Log("health up");
         }
@@ -71,7 +70,7 @@ public class PlayerStats : MonoBehaviour
 
             foreach (var current in shield)
             {
-                current.maxHitCapacity = baseShieldHealth;
+                current.maxHitCapacity += 1;
             }
         }
         

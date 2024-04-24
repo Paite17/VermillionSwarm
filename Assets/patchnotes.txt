@@ -3,7 +3,10 @@ Version 1.4:
    >Now initially spawns with 5000 health (was 25000)
    >Health will now ramp up with each consecutive rematch
 >Added additional voicelines for Pi Guy
+>Adjusted 'Blue Nebula' upgrade:
+	>Increased range and spread of fire
 >Updated main menu music
+>Removed some upgrade buttons
 >Fixed the upgrade buttons at the bottom of the screen
 >Fixed the next wave not starting properly after defeating Pi Guy
 >Fixed the 'Shield Capacity' button not having a check for if you do not have enough money to afford it
@@ -11,6 +14,9 @@ Version 1.4:
 >Fixed the 'Annihilator Beam' powerup not appearing as a card after a wave
 >Fixed 'Blue Nebula' upgrade not doing damage
 >Fixed shields not being able to respawn after already respawning once before
+>Fixed enemies colliding with each other
+>Fixed background clipping
+
 
 TODO:
 >Fix turrets not existing

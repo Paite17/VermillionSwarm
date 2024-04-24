@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &31490995
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3863,7 +3863,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &590073893
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5044,8 +5044,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 654, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 640.89, y: 0}
+  m_SizeDelta: {x: 72.22, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &896651951
 MonoBehaviour:
@@ -6103,9 +6103,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 2.2765737, y: 12.520854}
-      - {x: -8.57002, y: 11.816149}
-      - {x: -12.447573, y: 1.3482658}
+    - - {x: 10.417263, y: 24.798748}
+      - {x: -19.469498, y: 23.263868}
+      - {x: -25.36417, y: -7.0217514}
       - {x: -1.0261705, y: -1.5926175}
       - {x: 0.58778536, y: -0.80901694}
       - {x: 1.8179005, y: 0.3962057}
@@ -8641,7 +8641,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.95
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -15280,7 +15280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 68.2, y: -445.9}
+  m_AnchoredPosition: {x: -15, y: -445.9}
   m_SizeDelta: {x: 452.02, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1903693032
@@ -15440,6 +15440,7 @@ MonoBehaviour:
   bossSpawn: {fileID: 482076307}
   bossMusic: {fileID: 101889521}
   mainSFX: {fileID: 1908166234}
+  piGuyCurrentInstance: {fileID: 0}
 --- !u!4 &1908166231
 Transform:
   m_ObjectHideFlags: 0

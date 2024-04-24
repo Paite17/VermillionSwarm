@@ -47,13 +47,19 @@ public class UIScript : MonoBehaviour
 
         if (gameManager.State == GameState.BOSS_WAVE)
         {
-            bossHealthPercentage = Mathf.Round((100 * bossRef.EnemyHealth) / maxBossHealth) / 100;
-            bossHealthBar.fillAmount = bossHealthPercentage;
+            if (bossRef != null)
+            {
+                bossHealthPercentage = Mathf.Round((100 * bossRef.EnemyHealth) / maxBossHealth) / 100;
+                bossHealthBar.fillAmount = bossHealthPercentage;
+            }
+            
         }
     }
 
     public void ShowBossUI()
     {
+        // could just use FindObjectOfType or whatever
+        bossRef = gameManager.piGuyCurrentInstance;
         bossUI.SetActive(true);
         // first get the digit for the boss name
         int nameNum = gameManager.TimesBossWasBeat;

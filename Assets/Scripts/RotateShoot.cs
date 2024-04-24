@@ -287,6 +287,7 @@ public class RotateShoot : MonoBehaviour
 
     public void EquipFlamer()
     {
+        Debug.LogWarning("BLUE NEBULA BUTTON PRESSED");
         beamEquipped = false;
         gunEquipped = false;
         shotgunEquipped = false;

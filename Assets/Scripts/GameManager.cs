@@ -55,6 +55,8 @@ public class GameManager : MonoBehaviour
     public Transform bossSpawn;
     public AudioSource bossMusic;
     public AudioSource mainSFX;
+    public Enemy piGuyCurrentInstance;   // the current pi guy that the UI should refer to
+    private bool done;
 
     public float Score
     {
@@ -152,17 +154,24 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        /*if (piGuyBoss.GetComponent<Enemy>().EnemyHealth <= 0 && state == GameState.BOSS_WAVE)
+        if (state == GameState.BOSS_WAVE)
         {
-            Debug.Log("BOSS DEAD");
-            // beat boss
-            timesBossWasBeat++;
-            ui.HideBossUI();
-            EndOfWave();
+            if (piGuyCurrentInstance.EnemyHealth <= 0)
+            {
+                Debug.Log("BOSS DEAD");
+                // beat boss
+               
+                if (!done)
+                {
+                    timesBossWasBeat++;
+                    timesBossWasBeat--;
+                    done = true;
+                }    
+                ui.HideBossUI();
+                EndOfWave();
 
-        } */
-
-        // ^ pretty sure this does nothing lol
+            }
+        }
     }
 
     // adds every spawner present on the map to the list
@@ -264,6 +273,7 @@ public class GameManager : MonoBehaviour
         DespawnEnemies();
 
         state = GameState.UPGRADE;
+        done = false;
         UpgradeState();
 
     }
@@ -323,8 +333,7 @@ public class GameManager : MonoBehaviour
     private void BossWaveStart()
     {
         state = GameState.BOSS_WAVE;
-        // set UI things active
-        ui.ShowBossUI();
+        
         // set music
         mainSFX.Stop();
         bossMusic.Play();
@@ -340,7 +349,12 @@ public class GameManager : MonoBehaviour
         piGuySource.Play();
 
         // spawn boss
-        Instantiate(piGuyBoss, bossSpawn.position, Quaternion.identity);
+        GameObject obj = Instantiate(piGuyBoss, bossSpawn.position, Quaternion.identity);
+
+        piGuyCurrentInstance = obj.GetComponent<Enemy>();
+
+        // set UI things active
+        ui.ShowBossUI();
     }
 
     public void GameOver()

@@ -78,6 +78,15 @@ public class Enemy : MonoBehaviour
             FindObjectOfType<UIScript>().bossRef = this;
         }
         //StartMoving();
+
+        // remove collisions for enemies as they spawn in 
+        // this will probably not work very well, as older enemies will probably still collide with new ones
+        // come up with a better solution later
+        /*foreach (var e in FindObjectsOfType<Enemy>())
+        {
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), e.GetComponent<Collider2D>());
+        } */
+        
     }
 
     // Update is called once per frame
@@ -218,6 +227,10 @@ public class Enemy : MonoBehaviour
                 break;
             case "PlayerProj":
                 TakeDamage(GameObject.Find("MainShip").GetComponent<PlayerStats>().baseDamage);
+                break;
+            case "Enemy":
+                // ignore collision with other enemies
+                Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
                 break;
 
 

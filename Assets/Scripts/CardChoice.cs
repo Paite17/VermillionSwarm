@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardChoice : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class CardChoice : MonoBehaviour
 
     public void PickRandomObjects()
     {
+        
         if (selectableObjects.Count == 5)
         {
             selectedObject1 = null;

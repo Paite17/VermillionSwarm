@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7b7810de1dfa534e92a3e786628cd40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 4
+  enemyType: 5
   enemyDamage: 9999999
   movementSpeed: 0.4
   knockbackForce: 8
@@ -112,6 +112,7 @@ MonoBehaviour:
   firePos: {fileID: 0}
   projectileSpeed: 0
   numberOfEnemySpawns: 0
+  splitEnemy: {fileID: 0}
 --- !u!50 &3929260826120089509
 Rigidbody2D:
   serializedVersion: 4
