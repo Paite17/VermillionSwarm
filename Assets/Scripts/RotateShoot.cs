@@ -241,7 +241,7 @@ public class RotateShoot : MonoBehaviour
             flameFiring = false;
             flamePS.Stop();
             flamer.gameObject.SetActive(false);
-            flameReset = 3f;
+            flameReset = 4f;
             flameResetting = true;
             Debug.Log("cooling down");
         }
