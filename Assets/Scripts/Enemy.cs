@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 
 public enum EnemyType
@@ -10,6 +9,7 @@ public enum EnemyType
     RANGED,
     STEALTH,
     MULTIPLIER,
+    MULTIPLIER_SPLIT,
     PI_GUY
 }
 
@@ -40,6 +40,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform firePos;
     [SerializeField] private float projectileSpeed;
 
+    // multiplier enemy parameters
+    [Header("Multiplier-Specific Parameters")]
+    [SerializeField] private int numberOfEnemySpawns;
+    [SerializeField] private GameObject splitEnemy; // the gameobject that spawns after death
+    
+
     private Rigidbody2D rb;
 
     public float EnemyHealth
@@ -62,10 +68,25 @@ public class Enemy : MonoBehaviour
 
         if (enemyType == EnemyType.PI_GUY)
         {
+            int bossBeat = FindObjectOfType<GameManager>().TimesBossWasBeat;
+
+            if (bossBeat > 1)
+            {
+                IncreasePiGuyHealth(bossBeat);
+            }
             FindObjectOfType<UIScript>().maxBossHealth = enemyHealth;
             FindObjectOfType<UIScript>().bossRef = this;
         }
         //StartMoving();
+
+        // remove collisions for enemies as they spawn in 
+        // this will probably not work very well, as older enemies will probably still collide with new ones
+        // come up with a better solution later
+        /*foreach (var e in FindObjectsOfType<Enemy>())
+        {
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), e.GetComponent<Collider2D>());
+        } */
+        
     }
 
     // Update is called once per frame
@@ -152,9 +173,18 @@ public class Enemy : MonoBehaviour
 
     private void ShootProjectile()
     {
-        GameObject temp = Instantiate(shootProjectile, firePos.position, Quaternion.identity);
+        if (!retreating)
+        {
+            GameObject temp = Instantiate(shootProjectile, firePos.position, Quaternion.identity);
 
-        temp.GetComponent<Rigidbody2D>().AddForce(firePos.right * projectileSpeed, ForceMode2D.Impulse);
+            temp.GetComponent<Rigidbody2D>().AddForce(firePos.right * projectileSpeed, ForceMode2D.Impulse);
+        }
+    }
+
+    // increases the health of pi guy with each rematch you do
+    private void IncreasePiGuyHealth(int bossBeat)
+    {
+        enemyHealth += (enemyHealth * bossBeat) / 0.5f;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -198,8 +228,22 @@ public class Enemy : MonoBehaviour
             case "PlayerProj":
                 TakeDamage(GameObject.Find("MainShip").GetComponent<PlayerStats>().baseDamage);
                 break;
+            case "Enemy":
+                // ignore collision with other enemies
+                Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+                break;
 
 
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "PlayerProj":
+                TakeDamage(GameObject.Find("MainShip").GetComponent<PlayerStats>().baseDamage);
+                break;
         }
     }
 
@@ -213,11 +257,18 @@ public class Enemy : MonoBehaviour
         if (enemyType == EnemyType.PI_GUY)
         {
             FindObjectOfType<GameManager>().ResetBossCount();
+            FindObjectOfType<GameManager>().TimesBossWasBeat++;
             FindObjectOfType<GameManager>().EndOfWave();
             FindObjectOfType<UIScript>().HideBossUI();
         }
         FindObjectOfType<PlayerStats>().AddMoney(20);
         Destroy(gameObject);
+
+        // multiply into the specified amounts
+        if (enemyType == EnemyType.MULTIPLIER)
+        {
+
+        }
     }
 
     private void KnockbackTimer()

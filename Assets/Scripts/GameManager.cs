@@ -45,11 +45,18 @@ public class GameManager : MonoBehaviour
 
     [Header("Misc")]
     [SerializeField] private GameObject piGuyBoss; // the gameobject for pi guy himself
+    [SerializeField] private AudioClip piGuyIntroVoice; // the normal pi guy voiceline
+    [SerializeField] private AudioClip piGuyRematchVoice; // the voiceline for rematching pi guy
+    [SerializeField] private AudioClip piGuyDeath1;
+    [SerializeField] private AudioClip piGuyDeath2;
+    [SerializeField] private AudioSource piGuySource; // the source of all pi guy audio
 
     private PlayerStats player;
     public Transform bossSpawn;
     public AudioSource bossMusic;
     public AudioSource mainSFX;
+    public Enemy piGuyCurrentInstance;   // the current pi guy that the UI should refer to
+    private bool done;
 
     public float Score
     {
@@ -111,6 +118,7 @@ public class GameManager : MonoBehaviour
     public int TimesBossWasBeat
     {
         get { return timesBossWasBeat; }
+        set { timesBossWasBeat = value; }
     }
 
     private void Start()
@@ -123,7 +131,7 @@ public class GameManager : MonoBehaviour
         wavesUntilBoss = baseWaveUntilBoss;
         waveTimer = maxWaveTime;
         preWaveTimer = maxPreWaveTime;
-
+        timesBossWasBeat = 1;
     }
 
 
@@ -146,11 +154,23 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        if (piGuyBoss.GetComponent<Enemy>().EnemyHealth <= 0 && state == GameState.BOSS_WAVE)
+        if (state == GameState.BOSS_WAVE)
         {
-           // beat boss
-           timesBossWasBeat++;
-           ui.HideBossUI();
+            if (piGuyCurrentInstance.EnemyHealth <= 0)
+            {
+                Debug.Log("BOSS DEAD");
+                // beat boss
+               
+                if (!done)
+                {
+                    timesBossWasBeat++;
+                    timesBossWasBeat--;
+                    done = true;
+                }    
+                ui.HideBossUI();
+                EndOfWave();
+
+            }
         }
     }
 
@@ -206,7 +226,7 @@ public class GameManager : MonoBehaviour
 
     private void ActiveWaveCounter()
     {
-        Debug.Log("guh");
+        //Debug.Log("guh");
         waveTimer -= Time.deltaTime;
 
         if (waveTimer <= 0)
@@ -221,6 +241,23 @@ public class GameManager : MonoBehaviour
         Debug.Log("Wave Ended");
         //StartCoroutine(EndOfWaveLogic());
 
+        // boss
+        if (state == GameState.BOSS_WAVE)
+        {
+            bossMusic.Stop();
+            mainSFX.Play();
+
+            // pi guy dies.mp3
+            if (Random.Range(0, 1) == 1)
+            {
+                piGuySource.clip = piGuyDeath1;
+            }
+            else
+            {
+                piGuySource.clip = piGuyDeath2;
+            }
+            piGuySource.Play();
+        }
 
         // logic
         DeactivateSpawners();
@@ -236,6 +273,7 @@ public class GameManager : MonoBehaviour
         DespawnEnemies();
 
         state = GameState.UPGRADE;
+        done = false;
         UpgradeState();
 
     }
@@ -295,14 +333,28 @@ public class GameManager : MonoBehaviour
     private void BossWaveStart()
     {
         state = GameState.BOSS_WAVE;
-        // set UI things active
-        ui.ShowBossUI();
+        
         // set music
         mainSFX.Stop();
         bossMusic.Play();
+        // pi guy voiceline
+        if (timesBossWasBeat > 1)
+        {
+            piGuySource.clip = piGuyRematchVoice;
+        }
+        else
+        {
+            piGuySource.clip = piGuyIntroVoice;
+        }
+        piGuySource.Play();
 
         // spawn boss
-        Instantiate(piGuyBoss, bossSpawn.position, Quaternion.identity);
+        GameObject obj = Instantiate(piGuyBoss, bossSpawn.position, Quaternion.identity);
+
+        piGuyCurrentInstance = obj.GetComponent<Enemy>();
+
+        // set UI things active
+        ui.ShowBossUI();
     }
 
     public void GameOver()

@@ -14,7 +14,7 @@ public class ShipDefenses : MonoBehaviour
     [SerializeField] float rechargeTimer;
     [SerializeField] private ShieldState shieldState;
     
-    float rTimer;
+    [SerializeField] private float rTimer;
 
     public float maxHitCapacity;
 
@@ -67,6 +67,7 @@ public class ShipDefenses : MonoBehaviour
         {
             hitCapacity = 3;
             shieldState = ShieldState.ACTIVE;
+            rTimer = 0;
         }
     }
 
@@ -77,8 +78,8 @@ public class ShipDefenses : MonoBehaviour
         if (hitCapacity <= 0)
         {
             //Destroy(gameObject);
-            gameObject.SetActive(false);
-            FindObjectOfType<GameManager>();
+            //gameObject.SetActive(false);
+            //FindObjectOfType<GameManager>();
         }
     }
 }

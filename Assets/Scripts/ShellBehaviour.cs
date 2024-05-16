@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ShellBehaviour : MonoBehaviour
 {
-    [SerializeField] float lifeTime = 5f;    
+    [SerializeField] float lifeTime = 5f;
+    
 
     private void Start()
     {
@@ -14,6 +15,8 @@ public class ShellBehaviour : MonoBehaviour
     private void Update()
     {
         Timer();
+
+        
     }
 
     void Timer()
@@ -25,4 +28,5 @@ public class ShellBehaviour : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
 }

@@ -47,13 +47,19 @@ public class UIScript : MonoBehaviour
 
         if (gameManager.State == GameState.BOSS_WAVE)
         {
-            bossHealthPercentage = Mathf.Round((100 * bossRef.EnemyHealth) / maxBossHealth) / 100;
-            bossHealthBar.fillAmount = bossHealthPercentage;
+            if (bossRef != null)
+            {
+                bossHealthPercentage = Mathf.Round((100 * bossRef.EnemyHealth) / maxBossHealth) / 100;
+                bossHealthBar.fillAmount = bossHealthPercentage;
+            }
+            
         }
     }
 
     public void ShowBossUI()
     {
+        // could just use FindObjectOfType or whatever
+        bossRef = gameManager.piGuyCurrentInstance;
         bossUI.SetActive(true);
         // first get the digit for the boss name
         int nameNum = gameManager.TimesBossWasBeat;
@@ -65,23 +71,14 @@ public class UIScript : MonoBehaviour
             last = 1;
         }
 
-        switch (last)
+        if (nameNum != 1)
         {
-
-            case 1:
-                bossName.text = "Pi Guy";
-                    break;
-            case 2:
-                bossName.text = "Pi Guy the " + last + "nd";
-                break;
-            case 3:
-                bossName.text = "Pi Guy the " + last + "rd";
-                break;
-            default:
-                bossName.text = "Pi Guy the " + last + "th";
-                break;
+            bossName.text = "Pi Guy the " + nameNum + GetOrdinalSuffix(nameNum);
         }
-        
+        else
+        {
+            bossName.text = "Pi Guy";
+        }
 
     }
 
@@ -89,4 +86,27 @@ public class UIScript : MonoBehaviour
     {
         bossUI.SetActive(false);
     }
+
+    public string GetOrdinalSuffix(int number)
+    {
+        if ((number % 100 >= 11 && number % 100 <= 13) || number % 10 == 0)
+        {
+            return "th"; // Special case for 11, 12, 13 and numbers ending in 0 - they use "th"
+        }
+        else
+        {
+            switch (number % 10)
+            {
+                case 1:
+                    return "st";
+                case 2:
+                    return "nd";
+                case 3:
+                    return "rd";
+                default:
+                    return "th";
+            }
+        }
+    }
+
 }

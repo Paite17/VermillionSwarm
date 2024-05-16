@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &31490995
 RectTransform:
   m_ObjectHideFlags: 0
@@ -419,6 +419,7 @@ MonoBehaviour:
   hitCapacity: 3
   rechargeTimer: 15
   shieldState: 0
+  rTimer: 0
   maxHitCapacity: 3
 --- !u!1 &56349652
 GameObject:
@@ -504,7 +505,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1546936879}
         m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
         m_MethodName: AddHealth
         m_Mode: 1
@@ -856,7 +857,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.509
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1037,7 +1038,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1546936879}
         m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
         m_MethodName: AddDamage
         m_Mode: 1
@@ -1946,6 +1947,7 @@ MonoBehaviour:
   hitCapacity: 3
   rechargeTimer: 15
   shieldState: 0
+  rTimer: 0
   maxHitCapacity: 3
 --- !u!1 &309139301
 GameObject:
@@ -3648,7 +3650,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1546936879}
         m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
         m_MethodName: AddTurnSpeed
         m_Mode: 1
@@ -3742,7 +3744,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 10.07}
@@ -3861,7 +3863,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &590073893
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5005,6 +5007,7 @@ MonoBehaviour:
   hitCapacity: 3
   rechargeTimer: 15
   shieldState: 0
+  rTimer: 0
   maxHitCapacity: 3
 --- !u!1 &896651949
 GameObject:
@@ -5041,8 +5044,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 654, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 640.89, y: 0}
+  m_SizeDelta: {x: 72.22, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &896651951
 MonoBehaviour:
@@ -5916,9 +5919,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1546936879}
         m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
-        m_MethodName: AddShieldHealth
+        m_MethodName: AddShield
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6055,7 +6058,7 @@ GameObject:
   - component: {fileID: 1152758165}
   m_Layer: 0
   m_Name: Flamethrower
-  m_TagString: Untagged
+  m_TagString: PlayerProj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6100,9 +6103,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 2.2765737, y: 12.520854}
-      - {x: -8.57002, y: 11.816149}
-      - {x: -12.447573, y: 1.3482658}
+    - - {x: 10.417263, y: 24.798748}
+      - {x: -19.469498, y: 23.263868}
+      - {x: -25.36417, y: -7.0217514}
       - {x: -1.0261705, y: -1.5926175}
       - {x: 0.58778536, y: -0.80901694}
       - {x: 1.8179005, y: 0.3962057}
@@ -7542,6 +7545,7 @@ MonoBehaviour:
   hitCapacity: 3
   rechargeTimer: 15
   shieldState: 0
+  rTimer: 0
   maxHitCapacity: 3
 --- !u!60 &1451081585
 PolygonCollider2D:
@@ -8250,6 +8254,7 @@ MonoBehaviour:
   hitCapacity: 3
   rechargeTimer: 15
   shieldState: 0
+  rTimer: 0
   maxHitCapacity: 3
 --- !u!1 &1545435559
 GameObject:
@@ -8636,7 +8641,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.95
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -14025,6 +14030,7 @@ MonoBehaviour:
   hitCapacity: 3
   rechargeTimer: 15
   shieldState: 0
+  rTimer: 0
   maxHitCapacity: 3
 --- !u!1 &1628337158
 GameObject:
@@ -14645,7 +14651,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1546936879}
         m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
         m_MethodName: AddTurret
         m_Mode: 1
@@ -14917,7 +14923,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1546936879}
         m_TargetAssemblyTypeName: PlayerStats, Assembly-CSharp
         m_MethodName: AddShieldHealth
         m_Mode: 1
@@ -15274,7 +15280,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 68.2, y: -445.9}
+  m_AnchoredPosition: {x: -15, y: -445.9}
   m_SizeDelta: {x: 452.02, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1903693032
@@ -15426,9 +15432,15 @@ MonoBehaviour:
   timesBossWasBeat: 0
   ui: {fileID: 647320416}
   piGuyBoss: {fileID: 2451916434696500939, guid: 2c1da40706df20c4c853a3538e99b64c, type: 3}
+  piGuyIntroVoice: {fileID: 8300000, guid: 1a98f07f94cf25b47988549561800f64, type: 3}
+  piGuyRematchVoice: {fileID: 8300000, guid: 0467ca97234b2e94fb3d240b3ea58dcd, type: 3}
+  piGuyDeath1: {fileID: 8300000, guid: a6a783d0e5bb2b244a8c97b432b4f610, type: 3}
+  piGuyDeath2: {fileID: 8300000, guid: ac80962a2b00d784e9265d8d7656487d, type: 3}
+  piGuySource: {fileID: 2036626199}
   bossSpawn: {fileID: 482076307}
   bossMusic: {fileID: 101889521}
   mainSFX: {fileID: 1908166234}
+  piGuyCurrentInstance: {fileID: 0}
 --- !u!4 &1908166231
 Transform:
   m_ObjectHideFlags: 0
@@ -15566,7 +15578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectableObjects:
-  - {fileID: 6380513068410239531}
+  - {fileID: 6214893533326354865}
   - {fileID: 7160237925611408982}
   - {fileID: 1900595764}
   - {fileID: 1477352514315524357}
@@ -15834,6 +15846,7 @@ MonoBehaviour:
   hitCapacity: 3
   rechargeTimer: 15
   shieldState: 0
+  rTimer: 0
   maxHitCapacity: 3
 --- !u!1 &2016882148
 GameObject:
@@ -15993,7 +16006,136 @@ MonoBehaviour:
   hitCapacity: 3
   rechargeTimer: 15
   shieldState: 0
+  rTimer: 0
   maxHitCapacity: 3
+--- !u!1 &2036626198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2036626200}
+  - component: {fileID: 2036626199}
+  m_Layer: 0
+  m_Name: PiGuyAudio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &2036626199
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036626198}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &2036626200
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036626198}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2100120605
 GameObject:
   m_ObjectHideFlags: 0

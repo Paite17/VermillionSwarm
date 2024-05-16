@@ -1,0 +1,34 @@
+Version 1.4:
+>Adjusted Pi Guy:
+   >Now initially spawns with 5000 health (was 25000)
+   >Health will now ramp up with each consecutive rematch
+>Added additional voicelines for Pi Guy
+>Adjusted 'Blue Nebula' upgrade:
+   >Increased range and spread of fire
+   >Increased cooldown time to 4 seconds (from 3 seconds)
+>Updated main menu music
+>Removed some upgrade buttons
+>Fixed the upgrade buttons at the bottom of the screen
+>Fixed the next wave not starting properly after defeating Pi Guy
+>Fixed the 'Shield Capacity' button not having a check for if you do not have enough money to afford it
+>Fixed ranged enemies shooting while retreating after a wave has ended
+>Fixed the 'Annihilator Beam' powerup not appearing as a card after a wave
+>Fixed 'Blue Nebula' upgrade not doing damage
+>Fixed shields not being able to respawn after already respawning once before
+>Fixed enemies colliding with each other
+>Fixed background clipping
+>Fixed a bug where Pi Guy's music wouldn't loop
+>Fixed the 'Health' button not giving health to the player
+
+
+TODO:
+>Fix turrets not existing
+>Maybe make the button upgrades into additional card upgrades
+>Finish multiplier enemy code
+>Raise difficulty after a while (maybe increase spawn rates after a certain number of waves, or maybe they get faster?)
+>Decrease appearance of double firerate upgrade?
+>Fix backshot projectile sometimes getting caught on the red shield
+>After the first pi guy encounter make the amount of waves until you find him again randomised between a range?
+>highscore saving and menu to display them
+>Backshot can kill your own shields
+>Mobile version

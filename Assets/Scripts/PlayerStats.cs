@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -55,7 +54,7 @@ public class PlayerStats : MonoBehaviour
     {
         if (money >= 50)
         {
-            baseHealth += 1;
+            FindObjectOfType<Player>().Health += 1;
             money -= 50;
             Debug.Log("health up");
         }
@@ -63,14 +62,18 @@ public class PlayerStats : MonoBehaviour
 
     public void AddShieldHealth()
     {
-        baseShieldHealth++;
-        money -= 200;
-        var shield = FindObjectsOfType<ShipDefenses>();
-
-        foreach (var current in shield)
+        if (money >= 200)
         {
-            current.maxHitCapacity = baseShieldHealth;
+            baseShieldHealth++;
+            money -= 200;
+            var shield = FindObjectsOfType<ShipDefenses>();
+
+            foreach (var current in shield)
+            {
+                current.maxHitCapacity += 1;
+            }
         }
+        
     }
 
     public void AddTurret()

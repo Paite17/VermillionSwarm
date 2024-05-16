@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 5
+  shellType: 1
 --- !u!114 &-514517850834026584
 MonoBehaviour:
   m_ObjectHideFlags: 0

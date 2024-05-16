@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardChoice : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class CardChoice : MonoBehaviour
 
     public void PickRandomObjects()
     {
+        
         if (selectableObjects.Count == 5)
         {
             selectedObject1 = null;
@@ -42,6 +44,20 @@ public class CardChoice : MonoBehaviour
                 do
                 {
                     randomIndex = Random.Range(0, selectableObjects.Count);
+
+                    // make the laser rarer
+                    if (randomIndex == 0)
+                    {
+                        if (Random.Range(0, 6) < 4)
+                        {
+                            randomIndex = Random.Range(1, selectableObjects.Count);
+                        }
+                        else
+                        {
+                            randomIndex = 0;
+                        }
+                    }
+
                 } while (selectedIndices.Contains(randomIndex));
 
                 selectedIndices.Add(randomIndex);

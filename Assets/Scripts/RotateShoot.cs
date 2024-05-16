@@ -241,7 +241,7 @@ public class RotateShoot : MonoBehaviour
             flameFiring = false;
             flamePS.Stop();
             flamer.gameObject.SetActive(false);
-            flameReset = 3f;
+            flameReset = 4f;
             flameResetting = true;
             Debug.Log("cooling down");
         }
@@ -287,6 +287,7 @@ public class RotateShoot : MonoBehaviour
 
     public void EquipFlamer()
     {
+        Debug.LogWarning("BLUE NEBULA BUTTON PRESSED");
         beamEquipped = false;
         gunEquipped = false;
         shotgunEquipped = false;
