@@ -22,7 +22,7 @@ public class ProjectileDestroy : MonoBehaviour
                 Destroy(gameObject);
                 break;
             case "Enemy":
-                if (collision.gameObject.GetComponent<Enemy>().enemyType == EnemyType.PI_GUY)
+                if (collision.gameObject.GetComponent<Enemy>() || collision.gameObject.GetComponent<Enemy>().enemyType == EnemyType.PI_GUY)
                 {
                     Destroy(gameObject);
                 }
