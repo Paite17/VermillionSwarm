@@ -1,0 +1,65 @@
+{
+    "name": "MobileControls",
+    "maps": [
+        {
+            "name": "Mobile",
+            "id": "bee3c048-00a8-4716-90e2-d1bd69498938",
+            "actions": [
+                {
+                    "name": "Left/Right",
+                    "type": "Button",
+                    "id": "9cab54c2-635c-4202-a4c1-b5d505349cd1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "3bb2c140-6e3d-4ac9-ae04-51edbfbaa51e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8cd57944-73f8-4e63-945f-6230b55575bc",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left/Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f867a708-d648-48b6-a638-118230b5ee85",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Left/Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a8e2f6e-1a68-4441-bb3a-d55ef48613ac",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

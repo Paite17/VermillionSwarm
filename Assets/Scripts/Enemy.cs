@@ -107,7 +107,7 @@ public class Enemy : MonoBehaviour
                 if (!retreating)
                 {
                     transform.position += pathway * movementSpeed * Time.deltaTime;
-                   
+                    //transform.rotation = Quaternion.LookRotation(Vector2.right, playerLocation.position);
                 }
                 
 
